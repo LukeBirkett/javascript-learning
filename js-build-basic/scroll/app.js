@@ -35,9 +35,10 @@ const navbar = document.getElementById('nav');
 const topLink = document.querySelector('.top-link');
 
 window.addEventListener('scroll', function () {
-    const scrollHeight = window.pageYOffset;
+    const scrollHeight = window.pageYOffset; // coord of the top of the page
     const navHeight = navbar.getBoundingClientRect().height;
 
+    // retain nav bar during scrolling
     if (scrollHeight > navHeight) {
         navbar.classList.add('fixed-nav');
     }
@@ -45,6 +46,7 @@ window.addEventListener('scroll', function () {
         navbar.classList.remove('fixed-nav');
     }
 
+    // show back to top page once you get to certain point in page
     if (scrollHeight > 500) {
         topLink.classList.add('show-link')
     }
@@ -62,24 +64,30 @@ const scrollLinks = document.querySelectorAll('.scroll-link');
 
 scrollLinks.forEach(function (link) {
     link.addEventListener('click', function (e) {
-        // prevent default behaviour
         e.preventDefault();
 
         // navigate to specific spot
+
+        // get id of the button you have pressed
         const id = e.currentTarget.getAttribute('href').slice(1);
         const element = document.getElementById(id);
         
         // calc the heights
+        // note: navHeight pages with nav toggle is open vs closed
         const navHeight = navbar.getBoundingClientRect().height;
         const containerHeight = linksContainer.getBoundingClientRect().height;
         const fixedNav = navbar.classList.contains('fixed-nav');
 
+        console.log(element.offsetTop, navHeight, fixedNav, containerHeight, !fixedNav);
+
         let position = element.offsetTop - navHeight;
 
+        // if nav is not fixed remove the nav height from the position again
         if (!fixedNav){
             position = position - navHeight;
         };
 
+        // if nav links drop down is open adjust for that difference
         if (navHeight > 82) {
             position = position + containerHeight;
         };
