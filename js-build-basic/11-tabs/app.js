@@ -3,8 +3,8 @@ const about = document.querySelector(".about"); // parent of content
 const articles = document.querySelectorAll(".content");
 
 about.addEventListener('click', function (e) {
-    // console.log(e.target.dataset.id);
     const id = e.target.dataset.id;
+    
     if (id){
         // remove active buttons
         btns.forEach(function (btn) {
@@ -17,6 +17,7 @@ about.addEventListener('click', function (e) {
             article.classList.remove('active');
         });
 
+        // show button article
         const element = document.getElementById(id);
         element.classList.add('active');
     };
