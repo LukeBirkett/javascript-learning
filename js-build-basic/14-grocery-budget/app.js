@@ -43,7 +43,11 @@ function addItem (e) {
           <button type="button" class="edit-btn"><i class="fas fa-edit"></i></button>
           <button type="button" class="delete-btn"><i class="fas fa-edit"></i></button>
         </div>`;
-        console.log(element);
+
+        const deleteBtn = element.querySelector('.delete-btn');
+        const editBtn = element.querySelector('.edit-btn');
+        deleteBtn.addEventListener('click', deleteItem);
+        editBtn.addEventListener('click', editItem);
 
         // append child
         list.appendChild(element);
@@ -78,7 +82,7 @@ function displayAlert(text, action) {
 };
 
 function addToLocalStorage(id, value){
-    console.log('est')
+    console.log('added to local storage')
 };
 
 function setBackToDefault(id, value){
@@ -93,13 +97,19 @@ function clearList () {
     if (items.length > 0) {
         items.forEach(function (item){
             list.removeChild(item);
-        })
+        });
     };
     container.classList.remove('show-container');
     displayAlert('list removed', 'danger');
-    // localStorage.remoteItem('list');
     setBackToDefault();
+
 };
+
+// delete item
+function deleteItem () {console.log("del")};
+function editItem () {console.log("edit")};
+
+// edit item
 
 // ****** LOCAL STORAGE **********
 
