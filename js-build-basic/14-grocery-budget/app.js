@@ -26,16 +26,13 @@ function addItem (e) {
     
     if (value && !editFlag) {
         const element = document.createElement('article');
-        console.log(element);
         
         // add class
         element.classList.add('grocery-item');
-        console.log(element);
         
         // add id
         const attr = document.createAttribute('data-id');
         attr.value = id;
-        console.log(attr);
 
         element.setAttributeNode(attr);
         element.innerHTML = `<p class="title">${value}</p>
@@ -67,7 +64,7 @@ function addItem (e) {
     } else if (value && editFlag) {
         editElement.innerHTML = value;
         displayAlert('value changed', 'success');
-        // edit local
+        editLocalStorage(editID, value);
         setBackToDefault();
     } else {
         displayAlert('please enter value', 'danger')
@@ -132,7 +129,11 @@ function editItem (e) {
 
 // ****** LOCAL STORAGE **********
 function addToLocalStorage(id, value){
-    console.log('added to local storage')
+    const grocery = {id, value};
+    let items = localStorage.getItem('list')? JSON.parse(localStorage.getItem("list")):[];
+    console.log(items)
+    items.push(grocery);
+    localStorage.setItem("list", JSON.stringify(items));
 };
 
 function removeFromLocalStorage(id){
@@ -140,3 +141,6 @@ function removeFromLocalStorage(id){
 };
 
 // ****** SETUP ITEMS **********
+function editLocalStorage(id, value){
+    console.log('edit local storage')
+};
