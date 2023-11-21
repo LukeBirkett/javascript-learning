@@ -1,0 +1,20 @@
+body {
+    margin: 20;
+}
+
+.card {
+    width: 400px;
+    margin: 0 auto;
+    padding: 20;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    /* color: #2b2839; */
+    background: #ddebf8;
+    border-bottom: 6px #d8cefe solid;
+}
+
+.headshot {
+    width: 150;
+    margin-right: 10px;
+}
