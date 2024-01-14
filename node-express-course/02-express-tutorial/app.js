@@ -1,30 +1,80 @@
-const http = require('http');
+const express = require('express')
+const app = express()
+let { people } = require('./data')
 
-const server = http.createServer((req,res) => {
-    res.writeHead(200,{'content-type':'text/html'})
-    res.write('<h1>home page</h1>')
-    res.end()
-});
+// static assets
+app.use(express.static('./methods-public'))
+// parse form data
+app.use(express.urlencoded({ extended: false }))
+// parse json
+app.use(express.json())
 
-server.listen(4999);
+app.get('/api/people', (req, res) => {
+  res.status(200).json({ success: true, data: people })
+})
 
-// test
-
-// const express = require('express')
-// const path = require('path')
-// const app = express()
-
-// app.use(express.static('./public'))
-
-// // app.get('/', (req,res)=>{
-// //     res.sendFile(path.resolve(__dirname, './navbar-app/index.html'))
-// // })
-
-// app.get('*', (req,res)=>{
-//     console.log('not found');
-//     res.status(404).send('page not found')
+// app.post('/api/people', (req, res) => {
+//   const { name } = req.body
+//   if (!name) {
+//     return res
+//       .status(400)
+//       .json({ success: false, msg: 'please provide name value' })
+//   }
+//   res.status(201).json({ success: true, person: name })
 // })
 
-// app.listen(2500, () => {
-//     console.log('server is listening on 2500');
+// app.post('/api/postman/people', (req, res) => {
+//   const { name } = req.body
+//   if (!name) {
+//     return res
+//       .status(400)
+//       .json({ success: false, msg: 'please provide name value' })
+//   }
+//   res.status(201).json({ success: true, data: [...people, name] })
 // })
+
+// app.post('/login', (req, res) => {
+//   const { name } = req.body
+//   if (name) {
+//     return res.status(200).send(`Welcome ${name}`)
+//   }
+
+//   res.status(401).send('Please Provide Credentials')
+// })
+
+// app.put('/api/people/:id', (req, res) => {
+//   const { id } = req.params
+//   const { name } = req.body
+
+//   const person = people.find((person) => person.id === Number(id))
+
+//   if (!person) {
+//     return res
+//       .status(404)
+//       .json({ success: false, msg: `no person with id ${id}` })
+//   }
+//   const newPeople = people.map((person) => {
+//     if (person.id === Number(id)) {
+//       person.name = name
+//     }
+//     return person
+//   })
+//   res.status(200).json({ success: true, data: newPeople })
+// })
+
+// app.delete('/api/people/:id', (req, res) => {
+//   const person = people.find((person) => person.id === Number(req.params.id))
+//   if (!person) {
+//     return res
+//       .status(404)
+//       .json({ success: false, msg: `no person with id ${req.params.id}` })
+//   }
+//   const newPeople = people.filter(
+//     (person) => person.id !== Number(req.params.id)
+//   )
+//   return res.status(200).json({ success: true, data: newPeople })
+// })
+
+app.listen(4500, () => {
+  console.log('Server is listening on port 4500....')
+})
