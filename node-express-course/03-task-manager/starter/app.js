@@ -16,7 +16,7 @@ app.use('/api/v1/tasks', tasks)
 app.use(notFound)
 app.use(errorHandlerMiddlewear)
 
-const port = 4501
+const port = process.env.PORT || 4501
 
 const start = async() => {
     try {
